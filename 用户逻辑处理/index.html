@@ -75,6 +75,16 @@
             
     <li class="toctree-l2"><a href="#user_logic_node">User_Logic_Node</a></li>
     
+        <ul>
+        
+            <li><a class="toctree-l3" href="#_1">主要依赖库</a></li>
+        
+            <li><a class="toctree-l3" href="#_2">执行流程</a></li>
+        
+            <li><a class="toctree-l3" href="#_3">功能列表</a></li>
+        
+        </ul>
+    
 
     </ul>
 	    </li>
@@ -112,7 +122,66 @@
             <div class="section">
               
                 <h1 id="user_logic_node">User_Logic_Node<a class="headerlink" href="#user_logic_node" title="Permanent link">&para;</a></h1>
-<p>运动状态处理节点</p>
+<p>该节点主要用于用户运动功能的逻辑处理，与安卓端的运动功能交互，运动状态反馈等。</p>
+<h2 id="_1">主要依赖库<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p><a href="https://www.boost.org/doc/libs/1_45_0/libs/statechart/doc/tutorial.html">The Boost Statechart Library</a></p>
+<h2 id="_2">执行流程<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p><img alt="流程图" src="../img/流程图.jpg" /></p>
+<p>收到用户端指令后，user_logic_node节点通过actionlib机制调用对应的ActionServer出发动作执行，同时对外实时发布当前状态。</p>
+<p><img alt="状态转移图" src="../img/状态转移流程.jpg" /></p>
+<p>机器人所有状态切换均由<strong>空闲</strong>状态转移，动作执行完成后或者被取消后，机器人再次进入<strong>空闲</strong>状态</p>
+<h2 id="_3">功能列表<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>action id</th>
+<th>对应ActionServer名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"idle"</td>
+<td><a href="">IdleActionServer</a></td>
+<td>空闲状态处理</td>
+</tr>
+<tr>
+<td>"sleep"</td>
+<td><a href="">SleepActionServer</a></td>
+<td>休眠状态处理</td>
+</tr>
+<tr>
+<td>"movebase_goal"</td>
+<td><a href="">MoveBaseActionServer</a></td>
+<td>导航到目标点</td>
+</tr>
+<tr>
+<td>"rotate"</td>
+<td><a href="">RotateActionServer</a></td>
+<td>旋转一定角度(body 系)</td>
+</tr>
+<tr>
+<td>"rotate_to"</td>
+<td><a href="">RotateActionServer</a></td>
+<td>旋转到指定朝向(world 系)</td>
+</tr>
+<tr>
+<td>"go_charging"</td>
+<td><a href="">AutoDockingActionServer</a></td>
+<td>返回充电</td>
+</tr>
+<tr>
+<td>"separate_docker"</td>
+<td><a href="">AutoDockingActionServer</a></td>
+<td>脱离充电桩</td>
+</tr>
+<tr>
+<td>"remote_telep"</td>
+<td><a href="">RemoteTelepActionServer</a></td>
+<td>远程遥控，遇到障碍物停止</td>
+</tr>
+</tbody>
+</table>
               
             </div>
           </div>
