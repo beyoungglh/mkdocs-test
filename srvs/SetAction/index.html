@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="glh">
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>SetAction - Robot Docs</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "SetAction";
+    var mkdocs_page_input_path = "srvs/SetAction.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Robot Docs</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../..">介绍</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">通信方式</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../通信方式/">消息定义</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../消息分类/">消息分类</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../用户逻辑处理/">user_logic_node</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Robot Docs</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>SetAction</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="_1">文件<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>robot_msg/srv/SetAction.srv</p>
+<h2 id="_2">请求<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>string</td>
+<td>action_request_id</td>
+<td>动作请求id</td>
+</tr>
+<tr>
+<td><a href="http://docs.ros.org/api/geometry_msgs/html/msg/Vector3.html">Vector3</a></td>
+<td>goal</td>
+<td>动作目标，如果没有具体目标值则填空：<br> x： x坐标(m) <br> y： y坐标(m) <br>z： 姿态角(rad)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_3">响应<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>string</td>
+<td>action_response_id</td>
+<td>回复id，与当前action_request_id值相同，表明ros收到命令</td>
+</tr>
+</tbody>
+</table>
+<h2 id="action_request_id">action_request_id 枚举<a class="headerlink" href="#action_request_id" title="Permanent link">&para;</a></h2>
+<pre class="codehilite"><code class="linenums">#   action_request_id enum:         
+
+    &quot;sleep&quot;             - 休眠        
+    &quot;movebase_goal&quot;     - 导航到目标点        
+    &quot;rotate&quot;            - 旋转一定角度（body系） 
+    &quot;rotate_to&quot;         - 旋转到指定朝向（world系）
+    &quot;go_charging&quot;       - 返回充电              
+    &quot;separate_docker&quot;   - 脱离充电桩     
+    &quot;remote_telep&quot;      - 远程遥控</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+
+</body>
+</html>
