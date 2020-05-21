@@ -107,6 +107,13 @@
               
                 <h2 id="_1">文件<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>robot_msg/srv/SetMap.srv</p>
+<blockquote>
+<p><strong>该文档以下功能还需再确定：</strong></p>
+<ul>
+<li>需不需要支持多个地图，多楼层等情况</li>
+<li>需不需要机器人间共享地图，同一区域多个机器人的情况</li>
+</ul>
+</blockquote>
 <h2 id="_2">请求<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -121,6 +128,11 @@
 <td>string</td>
 <td>cmd</td>
 <td>地图操作命令</td>
+</tr>
+<tr>
+<td>string</td>
+<td>map_name</td>
+<td>构建地图名称</td>
 </tr>
 </tbody>
 </table>
@@ -140,6 +152,11 @@
 <td>执行结果,成功或者失败</td>
 </tr>
 <tr>
+<td>int32</td>
+<td>message_code</td>
+<td>额外信息代码</td>
+</tr>
+<tr>
 <td>string</td>
 <td>message</td>
 <td>额外信息描述，e.g. for error messages</td>
@@ -147,10 +164,15 @@
 </tbody>
 </table>
 <h2 id="cmd">cmd 枚举<a class="headerlink" href="#cmd" title="Permanent link">&para;</a></h2>
-<pre class="codehilite"><code class="linenums"># cmd enum
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span># cmd enum
 
     &quot;building_map&quot;,     构建地图
-    &quot;save_map&quot;,         保存地图</code></pre>
+    &quot;save_map&quot;,         保存地图
+</pre></div>
+</td></tr></table>
               
             </div>
           </div>
