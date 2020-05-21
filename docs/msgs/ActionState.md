@@ -16,7 +16,8 @@ int32 | action_feedback | 动作执行实时状态反馈
 #   action_state_id enum: 	
 
     "idle"			    - 空闲		
-    "sleep"			    - 休眠		
+    "sleep"			    - 休眠	
+    "safety_forward"    - 前进，遇到障碍物停止	
     "movebase_goal"	    - 导航到目标点		
     "rotate"		    - 旋转一定角度（body系）	
     "rotate_to"		    - 旋转到指定朝向（world系）
