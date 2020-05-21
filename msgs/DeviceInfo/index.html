@@ -122,8 +122,48 @@
 <td>connected</td>
 <td>底盘连接状态： <br> true : 连接成功 <br> false： 连接失败</td>
 </tr>
+<tr>
+<td>uint32</td>
+<td>bump_state</td>
+<td>碰撞传感器</td>
+</tr>
+<tr>
+<td>uint32[]</td>
+<td>adc_channal</td>
+<td>ADC传感器通道值， <strong>跌落传感器等</strong></td>
+</tr>
+<tr>
+<td>uint32[]</td>
+<td>range_sensor</td>
+<td>超声，tof等</td>
+</tr>
 </tbody>
 </table>
+<h3 id="adc">adc数据对应关系枚举示例<a class="headerlink" href="#adc" title="Permanent link">&para;</a></h3>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>    # adc channal e.g.
+     adc_channal[0]     -   cliff_left
+     adc_channal[1]     -   cliff_mid
+     adc_channal[2]     -   cliff_right
+     ......
+</pre></div>
+</td></tr></table>
+
+<h4 id="range">range数据对应关系示例<a class="headerlink" href="#range" title="Permanent link">&para;</a></h4>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>    # range sensor e.g.
+    range_sensor[0]     - sonar_left
+    range_sensor[1]     - sonar_right
+    range_sensor[2]     - infrared_mid 
+    ......
+</pre></div>
+</td></tr></table>
               
             </div>
           </div>
