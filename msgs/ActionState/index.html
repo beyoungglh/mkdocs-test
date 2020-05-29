@@ -150,7 +150,8 @@
 18
 19
 20
-21</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>#   action_state_id enum:   
+21
+22</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>#   action_state_id enum:   
 
     &quot;idle&quot;              - 空闲        
     &quot;sleep&quot;             - 休眠    
@@ -164,6 +165,7 @@
 
 # action_feedback enum
 
+    int32 NONE              = 0     # none
     int32 SET_NEW_GOAL      = 1     # 收到指令
     int32 RUNNING           = 2     # 动作执行中
     int32 GOAL_REACHED      = 3     # 成功 - 目标达到
