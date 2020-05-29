@@ -27,6 +27,7 @@ int32 | action_feedback | 动作执行实时状态反馈
 
 # action_feedback enum
 
+    int32 NONE              = 0     # none
     int32 SET_NEW_GOAL      = 1     # 收到指令
     int32 RUNNING           = 2     # 动作执行中
     int32 GOAL_REACHED      = 3     # 成功 - 目标达到
