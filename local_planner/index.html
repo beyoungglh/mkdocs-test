@@ -8,7 +8,7 @@
   
   <meta name="author" content="glh">
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>消息定义 - Robot Docs</title>
+  <title>local_planner - Robot Docs</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../css/theme.css" type="text/css" />
@@ -17,8 +17,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "\u6d88\u606f\u5b9a\u4e49";
-    var mkdocs_page_input_path = "\u901a\u4fe1\u65b9\u5f0f.md";
+    var mkdocs_page_name = "local_planner";
+    var mkdocs_page_input_path = "local_planner.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -57,23 +57,9 @@
 		
     <span class="caption-text">通信方式</span>
     <ul class="subnav">
-                <li class=" current">
+                <li class="">
                     
-    <a class="current" href="./">消息定义</a>
-    <ul class="subnav">
-            
-    <li class="toctree-l3"><a href="#_1">介绍</a></li>
-    
-        <ul>
-        
-            <li><a class="toctree-l4" href="#topic">Topic</a></li>
-        
-            <li><a class="toctree-l4" href="#service">Service</a></li>
-        
-        </ul>
-    
-
-    </ul>
+    <a class="" href="../通信方式/">消息定义</a>
                 </li>
                 <li class="">
                     
@@ -87,9 +73,25 @@
     <a class="" href="../用户逻辑处理/">user_logic_node</a>
 	    </li>
           
-            <li class="toctree-l1">
+            <li class="toctree-l1 current">
 		
-    <a class="" href="../local_planner/">local_planner</a>
+    <a class="current" href="./">local_planner</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#local_planner">local_planner</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#_1">问题描述</a></li>
+        
+            <li><a class="toctree-l3" href="#_2">方案介绍</a></li>
+        
+            <li><a class="toctree-l3" href="#_3">参考资料</a></li>
+        
+        </ul>
+    
+
+    </ul>
 	    </li>
           
         </ul>
@@ -113,12 +115,8 @@
     <li><a href="..">Docs</a> &raquo;</li>
     
       
-        
-          <li>通信方式 &raquo;</li>
-        
-      
     
-    <li>消息定义</li>
+    <li>local_planner</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -128,17 +126,85 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="_1">介绍<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<p>ros端对外提供一下两种通信方式</p>
-<h2 id="topic">Topic<a class="headerlink" href="#topic" title="Permanent link">&para;</a></h2>
+                <h1 id="local_planner">local_planner<a class="headerlink" href="#local_planner" title="Permanent link">&para;</a></h1>
+<p>机器人局部路径规划算法</p>
+<h2 id="_1">问题描述<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <ul>
-<li>该消息类型主要用于持续的数据流，周期性数据，无反馈的动作命令，例如传感器数据，机器人状态，速度指令等。</li>
-<li>多对多连接，异步非阻塞方式，数据可以在任意时间被独立的发送与接收。</li>
+<li>基本避障功能，静态和动态，尤其动态障碍物的追身问题</li>
+<li>路径，速度连续平滑</li>
+<li>平均速度0.5m/s</li>
+<li>狭窄通道的通过性， 尤其目标点在正后方时</li>
+<li>全局路径存在解的情况下，仍然有失败的现象</li>
 </ul>
-<h2 id="service">Service<a class="headerlink" href="#service" title="Permanent link">&para;</a></h2>
+<h2 id="_2">方案介绍<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <ul>
-<li>该类型被用于快速结束的远程过程调用，例如查询某个节点状态或者快速的计算等。</li>
-<li>一对多，同步阻塞方式。</li>
+<li>
+<p>pure pursuit 纯跟踪算法</p>
+<ul>
+<li>在全局路径上选取预瞄距离，几何跟踪的比例控制器</li>
+<li>容易实现，计算效率高，全局路径贴合程度高</li>
+<li>速度过快，转弯曲率过大，预瞄点选取不合理时容易超调，无人车应用</li>
+</ul>
+</li>
+<li>
+<p>dwa 动态窗口法</p>
+<ul>
+<li>在满足加速度约束的条件下，采样多组线速度，角速度，并依次检查评估，选取代价最低的轨迹</li>
+<li>采样时间内加速度恒定。</li>
+<li>前向仿真，容易实现，计算效率高</li>
+<li>适合差速底盘</li>
+</ul>
+</li>
+<li>
+<p>mpc 模型预测控制</p>
+<ul>
+<li>建立系统，问题模型，预测未来时刻系统状态，求解代价函数的最优控制量</li>
+<li>最优控制问题，计算量大，实时性问题</li>
+<li>无人车应用广泛，适用于差速底盘的开源代码可能还不太完善</li>
+</ul>
+</li>
+<li>
+<p>teb_local_planner </p>
+<ul>
+<li>基于时间的最优控制问题，计算量很大，实时性问题</li>
+<li>适用于各种类型底盘</li>
+<li>目前开源代码相对成熟稳定</li>
+</ul>
+</li>
+<li>
+<p>minimum jerk, minimum snap </p>
+<ul>
+<li>无人机相关</li>
+</ul>
+</li>
+</ul>
+<h2 id="_3">参考资料<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>PythonRobotics</p>
+<ul>
+<li><a href="">https://atsushisakai.github.io/PythonRobotics/</a></li>
+</ul>
+</li>
+<li>
+<p>pure_pursuit</p>
+<ul>
+<li><a href="">https://github.com/larics/pure_pursuit</a></li>
+</ul>
+</li>
+<li>dwa<ul>
+<li><a href="">http://wiki.ros.org/dwa_local_planner?distro=melodic</a></li>
+</ul>
+</li>
+<li>mpc<ul>
+<li><a href="">https://github.com/rst-tu-dortmund/mpc_local_planner</a></li>
+<li><a href="">https://github.com/Geonhee-LEE/mpc_ros</a>           </li>
+</ul>
+</li>
+<li>teb<ul>
+<li><a href="">https://github.com/rst-tu-dortmund/teb_local_planner</a>    </li>
+</ul>
+</li>
 </ul>
               
             </div>
@@ -147,10 +213,8 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../消息分类/" class="btn btn-neutral float-right" title="消息分类">Next <span class="icon icon-circle-arrow-right"></span></a>
       
-      
-        <a href=".." class="btn btn-neutral" title="介绍"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../用户逻辑处理/" class="btn btn-neutral" title="user_logic_node"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -176,10 +240,8 @@
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../用户逻辑处理/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
-      
-        <span style="margin-left: 15px"><a href="../消息分类/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
