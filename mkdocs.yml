@@ -8,6 +8,8 @@ nav:
         - 消息定义: 通信方式.md
         - 消息分类: 消息分类.md
     - user_logic_node: 用户逻辑处理.md
+    - local_planner:  local_planner.md 
+    
 
 markdown_extensions:
   - admonition  # 提示块
